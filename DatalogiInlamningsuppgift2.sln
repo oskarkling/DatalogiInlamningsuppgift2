@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatalogiInlamningsuppgift2", "DatalogiInlamningsuppgift2\DatalogiInlamningsuppgift2.csproj", "{94727C45-627B-4A1F-B895-3B2942FE195B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94727C45-627B-4A1F-B895-3B2942FE195B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94727C45-627B-4A1F-B895-3B2942FE195B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94727C45-627B-4A1F-B895-3B2942FE195B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94727C45-627B-4A1F-B895-3B2942FE195B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B93BBB0D-5751-4CBA-B8DD-D3D316A4802B}
+	EndGlobalSection
+EndGlobal
