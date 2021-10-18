@@ -7,7 +7,7 @@ using DatalogiInlamningsuppgift2.Utility;
 
 namespace DatalogiInlamningsuppgift2
 { 
-    // TODO: Lägg till en datastruktur där användaren välja att spara sina sökningar. Exempelvis en List<string> som printar ut det senaste.
+    // TODO: Lägg till en datastruktur där användaren välja att spara sina sökningar och reslutaten. Exempelvis en List<string> som printar ut det senaste.
     // http://www.dummytextgenerator.com/
 
     internal class Core
@@ -146,10 +146,21 @@ namespace DatalogiInlamningsuppgift2
             //{
             //    Console.WriteLine($"{input} does exist");
             //}
-        //else
+            //else
             //{
             //    Console.WriteLine($"{input} does not exist");
             //}
+
+
+            // string s = "iojfkosefoiklasejflöiasejfioSlsaejfilsejfiolsefjilHJKHJKHJKHKJH"
+            
+            // string p = "fiol"
+            // string p = "ostenisotuiawdghawkldhlawukdhuklawdhukla"
+            // O(m)
+
+            // O(n)
+
+            //O(n+m)
 
             SearchForAWordSubMenu();
         }
