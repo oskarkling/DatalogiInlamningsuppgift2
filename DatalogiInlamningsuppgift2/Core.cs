@@ -15,9 +15,6 @@ namespace DatalogiInlamningsuppgift2
         // Tidskomplexitetean för minst två funktioner ska skrivas som kommentar i koden
         // Minst en rekursiv funktion i programmet
         // Full kommenterad kod
-
-        private int menuChoice;
-        private int nrOfMenuChoices;
         private string errormsg;
         private List<string> listOfSearchedWords;
         private string[] doc1Arr;
@@ -144,15 +141,12 @@ namespace DatalogiInlamningsuppgift2
 
             listOfSearchedWords.Add(input);
 
-            int index;
-            int nrOfTimes;
-
 
             //if(DoesWordExistInDocuments(out index, out nrOfTimes))
             //{
             //    Console.WriteLine($"{input} does exist");
             //}
-            //else
+        //else
             //{
             //    Console.WriteLine($"{input} does not exist");
             //}
