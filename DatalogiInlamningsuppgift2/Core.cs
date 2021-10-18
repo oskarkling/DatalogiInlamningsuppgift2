@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using DatalogiInlamningsuppgift2.Utility;
 
 namespace DatalogiInlamningsuppgift2
-{ // TODO: Lägg till en datastruktur där användaren välja att spara sina sökningar. Exempelvis en List<string> som printar ut det senaste.
-  // http://www.dummytextgenerator.com/
+{ 
+    // TODO: Lägg till en datastruktur där användaren välja att spara sina sökningar. Exempelvis en List<string> som printar ut det senaste.
+    // http://www.dummytextgenerator.com/
+
     internal class Core
     {
         // Tidskomplexitetean för minst två funktioner ska skrivas som kommentar i koden
@@ -67,40 +69,6 @@ namespace DatalogiInlamningsuppgift2
             // 2. visa sparade ord.
             // 3. sortera dokumenten i bokstavsordning
             // -> Hur många ord vill du skriva ut till consolen från de sorterade dokumenten?
-
-            //bool runMenu = true;
-            //while(runMenu)
-            //{
-            //    nrOfMenuChoices = 4;
-            //    Console.WriteLine("1. Search for a word\n2. Show saved words\n3. Sort documents in alphabetical order\n0. Exit\n");
-            //    string input = Console.ReadLine();
-            //    if(Input.IsMenuInputValid(input, out menuChoice, out errormsg, nrOfMenuChoices))
-            //    {
-            //        switch (menuChoice)
-            //        {
-            //            case 1:
-            //                SearchForAWord();
-            //                break;
-            //            case 2:
-            //                ShowSavedWords();
-            //                break;
-            //            case 3:
-            //                SortDocumentsInAlphabetOrder();
-            //                break;
-            //            case 0:
-            //                Console.Clear();
-            //                Console.WriteLine("bye bye\n");
-            //                Environment.Exit(0);
-            //                break;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        Console.Clear();
-            //        Console.WriteLine(errormsg);
-            //    }
-            //}
-
 
             List<string> menuItems = new List<string>()
             {
