@@ -11,14 +11,9 @@ namespace DatalogiInlamningsuppgift2.DataStructures
         public Node Root { get; set; }
         public string TreeAsString { get; set; }
 
+        public int Counter { get; set; }
 
-
-
-
-
-
-
-
+        public Node MostWordNode { get; set; }
 
         // Adds a value to the binary tree, thus creating a Node
         public bool Add(string val)
@@ -87,11 +82,29 @@ namespace DatalogiInlamningsuppgift2.DataStructures
             return TreeAsString;
         }
 
-        public bool SortTreeInOrder()
+        public string GetHighestCountOfWord(out int count)
         {
-
-            return false;
+            Counter = 1;
+            GetHighestCountOfWord(this.Root);
+            count = MostWordNode.Count;
+            return MostWordNode.Data;
         }
+
+        // Recursive method of finding the highest count of a node
+        private void GetHighestCountOfWord(Node parent)
+        {
+            if(parent != null)
+            {
+                if(parent.Count >= Counter)
+                {
+                    Counter = parent.Count;
+                    MostWordNode = parent;
+                }
+                GetHighestCountOfWord(parent.Left);
+                GetHighestCountOfWord(parent.Right);
+            }
+        }
+
         private void TraverseInOrder(Node parent)
         {
             if (parent != null)
