@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,23 +49,28 @@ namespace DatalogiInlamningsuppgift2
         // Load text from files to arrays
         private void InitTxtFiles()
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             if(Utils.TxtToArr(FILE_PATH_1, out doc1Arr, out errormsg) && 
                 Utils.TxtToArr(FILE_PATH_2, out doc2Arr, out errormsg) && 
                 Utils.TxtToArr(FILE_PATH_3, out doc3Arr, out errormsg))
             {
-                Console.WriteLine("Texts from three documents loaded successfully into string[] arrays\n\n");
+                stopwatch.Stop();
+                Console.WriteLine("Texts from three documents loaded successfully into string[] arrays in " + stopwatch.Elapsed + "\n");
 
+                stopwatch = new Stopwatch();
+                stopwatch.Start();
                 documents = Utils.SortArrays(doc1Arr, doc2Arr, doc3Arr);
-                Console.WriteLine("Text sare now sorted in arrays with heapsort\n");
+                stopwatch.Stop();
+                Console.WriteLine("Text sare now sorted in arrays with heapsort in "+ stopwatch.Elapsed + "\n");
 
+                stopwatch = new Stopwatch();
+                stopwatch.Start();
                 bintreeArr = Utils.InsertIntoBinaryTree(documents);
+                stopwatch.Stop();
 
-                Console.WriteLine("Texts are now inserted into a sorted into three binary trees");
-
-                // TODO
-                // 3. Fixa så man kan söka på ord med kmp algo ?
-
-
+                Console.WriteLine("Texts are now inserted into a sorted into three binary trees in " + stopwatch.Elapsed + "\n");
+                
             }
             else
             {
@@ -100,19 +106,16 @@ namespace DatalogiInlamningsuppgift2
                 if (selectedMenuItem == "Search for a word")
                 {
                     Console.Clear();
-                    Console.WriteLine("option 1");
                     SearchForAWord();
                 }
                 else if (selectedMenuItem == "Show saved words")
                 {
                     Console.Clear();
-                    Console.WriteLine("option 2");
                     ShowSavedWords();
                 }
                 else if (selectedMenuItem == "Sort documents in alphabetical order")
                 {
                     Console.Clear();
-                    Console.WriteLine("option 3");
                     SortDocumentsInAlphabetOrder();
                 }
                 else if (selectedMenuItem == "Exit")
@@ -150,43 +153,80 @@ namespace DatalogiInlamningsuppgift2
         private void SearchForAWord()
         {
 
-            // Algorithm to implement: https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm
+            // Algorithm to implement:
 
             Console.Clear();
             Console.Write("Enter word to search for: ");
             string input = Console.ReadLine();
             Console.WriteLine("\n");
+            
+            int count = 0;
+            String result = "";
+            Stopwatch stopwatch = new Stopwatch();
+            if (input != String.Empty)
+            {
+
+                for (int i = 0; i < bintreeArr.Length; i++)
+                {
+
+                    //TODO HERE WE ARE 
+                    if (bintreeArr[i].FindNode(out count, input))
+                    {
+                        stopwatch.Stop();
+                        Console.WriteLine("Found word in " + stopwatch.Elapsed);
+                        Console.WriteLine(input);
+                        Console.WriteLine(count);
+
+                    }
+
+                }
+            }
+            else
+            {
+                Console.WriteLine("word does not exist");
+            }
+            stopwatch.Stop();
+            
 
             listOfSearchedWords.Add(input);
 
-
-            //if(DoesWordExistInDocuments(out index, out nrOfTimes))
+            //foreach(var binTree in bintreeArr)
             //{
-            //    Console.WriteLine($"{input} does exist");
+            //    Console.Write($"{binTree.GetHighestCountOfWord(out count, input)} NR OF TIMES: {count}");
             //}
-            //else
-            //{
-            //    Console.WriteLine($"{input} does not exist");
-            //}
-
-
-            // string s = "iojfkosefoiklasejflöiasejfioSlsaejfilsejfiolsefjilHJKHJKHJKHKJH"
             
-            // string p = "fiol"
-            // string p = "ostenisotuiawdghawkldhlawukdhuklawdhukla"
-            // O(m)
 
-            // O(n)
-
-            //O(n+m)
-
-            SearchForAWordSubMenu();
+            //SearchForAWordSubMenu();
         }
 
         // under construction
         private void SearchForAWordSubMenu()
         {
             
+        }
+
+        private void twoForLoops(string input)
+        {
+            // testing for in for O(n*n) Speed
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            int counter = 0;
+            bool found = false;
+            for (int i = 0; i < documents.Length; i++)
+            {
+                for (int j = 0; j < documents[i].Length; j++)
+                {
+                    if (documents[i][j] == input)
+                    {
+                        counter++;
+                        found = true;
+                    }
+                }
+            }
+
+            stopwatch.Stop();
+            Console.WriteLine("\nFor loop counter = " + counter);
+            Console.WriteLine("Found word in " + stopwatch.Elapsed + "\n");
         }
     }
 }
