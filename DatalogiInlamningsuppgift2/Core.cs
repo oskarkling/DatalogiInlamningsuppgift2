@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DatalogiInlamningsuppgift2.DataStructures;
 using DatalogiInlamningsuppgift2.Utility;
 
 namespace DatalogiInlamningsuppgift2
@@ -24,6 +25,10 @@ namespace DatalogiInlamningsuppgift2
         private string FILE_PATH_1;
         private string FILE_PATH_2;
         private string FILE_PATH_3;
+        private BinaryTree bintree1;
+        private BinaryTree bintree2;
+        private BinaryTree bintree3;
+        private BinaryTree[] bintreeArr;
 
 
         //private List<string> doc1List;
@@ -47,14 +52,27 @@ namespace DatalogiInlamningsuppgift2
                 Utils.TxtToArr(FILE_PATH_2, out doc2Arr, out errormsg) && 
                 Utils.TxtToArr(FILE_PATH_3, out doc3Arr, out errormsg))
             {
-                Console.WriteLine("Text from three documents loaded successfully into string[] arrays\n\n");
+                Console.WriteLine("Texts from three documents loaded successfully into string[] arrays\n\n");
+
+                documents = Utils.SortArrays(doc1Arr, doc2Arr, doc3Arr);
+                Console.WriteLine("Text sare now sorted in arrays with heapsort\n");
+
+                bintreeArr = Utils.InsertIntoBinaryTree(documents);
+
+                Console.WriteLine("Texts are now inserted into a sorted into three binary trees");
+
+                // TODO
+                // 3. Fixa så man kan söka på ord med kmp algo ?
+
+
             }
             else
             {
                 Console.WriteLine(errormsg);
+                Environment.Exit(0);
             }
 
-            documents = new string[][] { doc1Arr, doc2Arr, doc3Arr };
+            //documents = new string[][] { doc1Arr, doc2Arr, doc3Arr };
         }
 
         // under construction
@@ -101,7 +119,7 @@ namespace DatalogiInlamningsuppgift2
                 {
                     Console.Clear();
                     Console.WriteLine("bye bye");
-                    Environment.Exit(0); // Or  System.Environment.Exit(0);
+                    Environment.Exit(0);
                 }
             }
         }
