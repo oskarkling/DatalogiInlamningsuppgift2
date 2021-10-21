@@ -11,7 +11,6 @@ namespace DatalogiInlamningsuppgift2.DataStructures
         public Node Left { get; set; }
         public Node Right { get; set; }
         public string Data { get; set; }
-
         public int Count { get; set; }
 
         internal Node()

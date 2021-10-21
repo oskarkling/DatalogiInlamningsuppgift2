@@ -10,9 +10,7 @@ namespace DatalogiInlamningsuppgift2.DataStructures
     {
         public Node Root { get; set; }
         public string TreeAsString { get; set; }
-
         public int Counter { get; set; }
-
         public Node MostWordNode { get; set; }
         public Node NodeToFind { get; set; }
 
@@ -160,107 +158,5 @@ namespace DatalogiInlamningsuppgift2.DataStructures
                 TraversePreOrder(parent.Right);
             }
         }
-
-        //_____________________________________________________________________________________________________________________
-        //public Node Find(long val)
-        //{
-        //    return this.Find(val, this.Root);
-        //}
-
-        //public void Remove(long val)
-        //{
-        //    this.Root = Remove(this.Root, val);
-        //}
-
-
-        // Gets the max value in the binary tree
-        //public long MaxVal()
-        //{
-        //    long maxVal = this.Root.Data;
-        //    Node newNode = this.Root;
-
-        //    while(newNode.Right != null)
-        //    {
-        //        maxVal = newNode.Right.Data;
-        //        newNode = newNode.Right;
-        //    }
-
-        //    return maxVal;
-        //}
-
-        // Recursive Remove method
-        //private Node Remove(Node parent, long val)
-        //{
-        //    if(parent == null)
-        //    {
-        //        return parent;
-        //    }
-
-        //    if(val < parent.Data)
-        //    {
-        //        parent.Left = Remove(parent.Left, val);
-        //    }
-        //    else if(val > parent.Data)
-        //    {
-        //        parent.Right = Remove(parent.Right, val);
-        //    }
-
-        //    // If value is the same as parent.Data. This is the node to be deleted.
-        //    else
-        //    {
-        //        // Node only haas one child or no children
-        //        if (parent.Left == null)
-        //        {
-        //            return parent.Right;
-        //        }
-        //        else if (parent.Right == null)
-        //        {
-        //            return parent.Left;
-        //        }
-
-        //        parent.Data = MinVal(parent.Right);
-
-        //        parent.Right = Remove(parent.Right, parent.Data);
-        //    }
-
-        //    return parent;
-        //}
-
-        // Gets the node with the smallest value
-        //private long MinVal(Node node)
-        //{
-        //    long minVal = node.Data;
-        //    while(node.Left != null)
-        //    {
-        //        minVal = node.Left.Data;
-        //        node = node.Left;
-        //    }
-
-        //    return minVal;
-        //}
-
-        // Recursive method of finding the node with the Value
-        // If no node is found, return null
-        //private Node Find(long val, Node parent)
-        //{
-        //    if(parent != null)
-        //    {
-        //        if(val == parent.Data)
-        //        {
-        //            return parent;
-        //        }
-
-        //        if(val < parent.Data)
-        //        {
-        //            return Find(val, parent.Left);
-        //        }
-        //        else
-        //        {
-        //            return Find(val, parent.Right);
-        //        }
-        //    }
-
-        //    return null;
-        //}
     }
 }

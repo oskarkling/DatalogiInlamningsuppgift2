@@ -8,9 +8,9 @@ namespace DatalogiInlamningsuppgift2.DataStructures
 {
     internal class SearchResult
     {
-        internal int Doc1 { get; set; }
-        internal int Doc2 { get; set; }
-        internal int Doc3 { get; set; }
+        internal string Document { get; set; }
+
+        public int Count { get; set; }
 
         internal string SearchWord { get; set; }
 

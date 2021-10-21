@@ -18,7 +18,6 @@ namespace DatalogiInlamningsuppgift2
         // Minst en rekursiv funktion i programmet
         // Full kommenterad kod
         private string errormsg;
-        private List<string> listOfSearchedWords;
         private string[] doc1Arr;
         private string[] doc2Arr;
         private string[] doc3Arr;
@@ -30,18 +29,14 @@ namespace DatalogiInlamningsuppgift2
         private BinaryTree bintree2;
         private BinaryTree bintree3;
         private BinaryTree[] bintreeArr;
-
-
-        //private List<string> doc1List;
-        //private List<string> doc2List;
-        //private List<string> doc3List;
+        private List<SearchResult> listOfResults;
 
         internal Core()
         {
             FILE_PATH_1 = @"\Textfiles\text1000.txt";
             FILE_PATH_2 = @"\Textfiles\text1500.txt";
             FILE_PATH_3 = @"\Textfiles\text3000.txt";
-            listOfSearchedWords = new List<string>();
+            listOfResults = new List<SearchResult>();
             InitTxtFiles();
             MainMenu();
         }
@@ -56,20 +51,20 @@ namespace DatalogiInlamningsuppgift2
                 Utils.TxtToArr(FILE_PATH_3, out doc3Arr, out errormsg))
             {
                 stopwatch.Stop();
-                Console.WriteLine("Texts from three documents loaded successfully into string[] arrays in " + stopwatch.Elapsed + "\n");
+                Console.WriteLine("Texts from three .txt documents loaded successfully into string[] arrays. Operations took  " + stopwatch.Elapsed);
 
                 stopwatch = new Stopwatch();
                 stopwatch.Start();
                 documents = Utils.SortArrays(doc1Arr, doc2Arr, doc3Arr);
                 stopwatch.Stop();
-                Console.WriteLine("Text sare now sorted in arrays with heapsort in "+ stopwatch.Elapsed + "\n");
+                Console.WriteLine("Text sare now sorted in arrays. Operations took " + stopwatch.Elapsed);
 
                 stopwatch = new Stopwatch();
                 stopwatch.Start();
                 bintreeArr = Utils.InsertIntoBinaryTree(documents);
                 stopwatch.Stop();
 
-                Console.WriteLine("Texts are now inserted into a sorted into three binary trees in " + stopwatch.Elapsed + "\n");
+                Console.WriteLine("Texts are now inserted into three sorted binary trees. Operations took " + stopwatch.Elapsed);
                 
             }
             else
@@ -77,8 +72,6 @@ namespace DatalogiInlamningsuppgift2
                 Console.WriteLine(errormsg);
                 Environment.Exit(0);
             }
-
-            //documents = new string[][] { doc1Arr, doc2Arr, doc3Arr };
         }
 
         // under construction
@@ -98,6 +91,8 @@ namespace DatalogiInlamningsuppgift2
                 "Sort documents in alphabetical order",
                 "Exit",
             };
+
+            Console.WriteLine("\nUse arrow keys to navigate the menu\n");
 
             Console.CursorVisible = false;
             while (true)
@@ -136,14 +131,15 @@ namespace DatalogiInlamningsuppgift2
         // under construction
         private void ShowSavedWords()
         {
-            if (listOfSearchedWords.Count > 0)
+            if (listOfResults.Count > 0)
             {
-                for(int i = 0; i < listOfSearchedWords.Count; i++)
+                for (int i = 0; i < listOfResults.Count; i++)
                 {
-                    Console.WriteLine(listOfSearchedWords[i]);
+                    Console.WriteLine($"Word searched: ({listOfResults[i].SearchWord}) | ({listOfResults[i].Document}) | ({listOfResults[i].Count}) Occurances");
+
                 }
             }
-            else if (listOfSearchedWords.Count == 0)
+            else if (listOfResults.Count == 0)
             {
                 Console.WriteLine("You have no saved searches.");
             }
@@ -152,59 +148,100 @@ namespace DatalogiInlamningsuppgift2
         // under construction
         private void SearchForAWord()
         {
-
-            // Algorithm to implement:
-
             Console.Clear();
             Console.Write("Enter word to search for: ");
             string input = Console.ReadLine();
             Console.WriteLine("\n");
-            
+
             int count = 0;
-            String result = "";
+            bool canSaveResults = false;
+            SearchResult[] resultsTempArr = Utils.InitializeArray<SearchResult>(3);
             Stopwatch stopwatch = new Stopwatch();
             if (input != String.Empty)
             {
-
+                stopwatch.Start();
                 for (int i = 0; i < bintreeArr.Length; i++)
                 {
-
                     //TODO HERE WE ARE 
                     if (bintreeArr[i].FindNode(out count, input))
                     {
-                        stopwatch.Stop();
-                        Console.WriteLine("Found word in " + stopwatch.Elapsed);
+                        canSaveResults = true;
                         Console.WriteLine(input);
                         Console.WriteLine(count);
+                        stopwatch.Stop();
+                        Console.WriteLine("Found word in " + stopwatch.Elapsed);
+                        SearchResult result = new SearchResult();
+                        result.Count = count;
+                        result.SearchWord = input;
+                        if (i == 0)
+                        {
+                            result.Document = "document 1";
+                        }
+                        else if (i == 1)
+                        {
+                            result.Document = "document 2";
+                        }
+                        else
+                        {
+                            result.Document = "document 3";
+                        }
 
+                        resultsTempArr[i] = result;
                     }
 
                 }
+                stopwatch.Stop();
+                Console.WriteLine("\n");
+
+                if(canSaveResults)
+                {
+                    SearchForAWordSubMenu(resultsTempArr);
+                }
+
             }
             else
             {
                 Console.WriteLine("word does not exist");
             }
-            stopwatch.Stop();
             
-
-            listOfSearchedWords.Add(input);
-
-            //foreach(var binTree in bintreeArr)
-            //{
-            //    Console.Write($"{binTree.GetHighestCountOfWord(out count, input)} NR OF TIMES: {count}");
-            //}
-            
-
-            //SearchForAWordSubMenu();
         }
 
         // under construction
-        private void SearchForAWordSubMenu()
+        private void SearchForAWordSubMenu(SearchResult[] resultsTempArr)
         {
-            
+
+            List<string> menuItems = new List<string>()
+            {
+                "Yes",
+                "No",
+            };
+            Console.WriteLine("Do you want to save results?\n");
+            Console.CursorVisible = false;
+            while (true)
+            {
+                string selectedMenuItem = Menu.DrawMenu(menuItems);
+                if (selectedMenuItem == "Yes")
+                {
+                    Console.Clear();
+                    for(int i = 0; i < resultsTempArr.Length; i++)
+                    {
+                        listOfResults.Add(resultsTempArr[i]);
+                    }
+                    Console.WriteLine("saved words!\n");
+                    return;
+                }
+                else if (selectedMenuItem == "No")
+                {
+                    Console.Clear();
+                    Console.WriteLine("not saving\n");
+                    return;
+                }
+            }
+
         }
 
+
+        // FOR TESTING SPEED
         private void twoForLoops(string input)
         {
             // testing for in for O(n*n) Speed
