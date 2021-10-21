@@ -131,17 +131,23 @@ namespace DatalogiInlamningsuppgift2
         // under construction
         private void ShowSavedWords()
         {
+            int count = 0;
             if (listOfResults.Count > 0)
             {
                 for (int i = 0; i < listOfResults.Count; i++)
                 {
-                    Console.WriteLine($"Word searched: ({listOfResults[i].SearchWord}) | ({listOfResults[i].Document}) | ({listOfResults[i].Count}) Occurances");
-
+                    Console.WriteLine($"Word searched: {listOfResults[i].SearchWord} | {listOfResults[i].Document} | {listOfResults[i].Count} Occurances");
+                    count++;
+                    if (count % 3 == 0)
+                    {
+                        Console.WriteLine($"----------------------------------------------------- Search no. {count / 3}");
+                    }
                 }
+                Console.WriteLine();
             }
             else if (listOfResults.Count == 0)
             {
-                Console.WriteLine("You have no saved searches.");
+                Console.WriteLine("You have no saved searches.\n");
             }
         }
 
@@ -159,17 +165,14 @@ namespace DatalogiInlamningsuppgift2
             Stopwatch stopwatch = new Stopwatch();
             if (input != String.Empty)
             {
-                stopwatch.Start();
                 for (int i = 0; i < bintreeArr.Length; i++)
                 {
+                    stopwatch.Start();
                     //TODO HERE WE ARE 
                     if (bintreeArr[i].FindNode(out count, input))
                     {
                         canSaveResults = true;
-                        Console.WriteLine(input);
-                        Console.WriteLine(count);
                         stopwatch.Stop();
-                        Console.WriteLine("Found word in " + stopwatch.Elapsed);
                         SearchResult result = new SearchResult();
                         result.Count = count;
                         result.SearchWord = input;
@@ -187,10 +190,17 @@ namespace DatalogiInlamningsuppgift2
                         }
 
                         resultsTempArr[i] = result;
+                        // Detta gör så att spalterna radar upp rätt
+                        if (result.Count < 10)
+                        {
+                            Console.WriteLine($"{result.SearchWord} | {result.Document} | {result.Count}  Occurances | Found word in {stopwatch.Elapsed}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{result.SearchWord} | {result.Document} | {result.Count} Occurances | Found word in {stopwatch.Elapsed}");
+                        }
                     }
-
                 }
-                stopwatch.Stop();
                 Console.WriteLine("\n");
 
                 if(canSaveResults)
