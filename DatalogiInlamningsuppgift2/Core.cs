@@ -77,18 +77,11 @@ namespace DatalogiInlamningsuppgift2
         // under construction
         private void MainMenu()
         {
-            // VAL:
-            // 1. söka förekomster av ord?
-            // -> VILL DU SPARA ORDEN?
-            // 2. visa sparade ord.
-            // 3. sortera dokumenten i bokstavsordning
-            // -> Hur många ord vill du skriva ut till consolen från de sorterade dokumenten?
-
             List<string> menuItems = new List<string>()
             {
                 "Search for a word",
                 "Show saved words",
-                "Sort documents in alphabetical order",
+                "Sort documents in alphabetical order. Then print or save them as new txt files",
                 "Exit",
             };
 
@@ -108,10 +101,10 @@ namespace DatalogiInlamningsuppgift2
                     Console.Clear();
                     ShowSavedWords();
                 }
-                else if (selectedMenuItem == "Sort documents in alphabetical order")
+                else if (selectedMenuItem == "Sort documents in alphabetical order. Then print or save them as new txt files")
                 {
                     Console.Clear();
-                    SortDocumentsInAlphabetOrder();
+                    PrintOrWriteSubMenu();
                 }
                 else if (selectedMenuItem == "Exit")
                 {
@@ -122,10 +115,138 @@ namespace DatalogiInlamningsuppgift2
             }
         }
 
-        private void SortDocumentsInAlphabetOrder()
+        private void PrintOrWriteSubMenu()
         {
-            // Skapa en ny List och sedan använda List.Sort()? fast det blir kanske inte så snabbt i sådanna fall.
-            throw new NotImplementedException();
+
+            List<string> menuItems = new List<string>()
+            {
+                "Print out words from sorted array",
+                "Write sorted arrays to new txt files",
+                "Back",
+            };
+
+            Console.CursorVisible = false;
+            while (true)
+            {
+                string selectedMenuItem = Menu.DrawMenu(menuItems);
+                if (selectedMenuItem == "Print out words from sorted array")
+                {
+                    Console.Clear();
+                    bool allDocuments = false;
+                    int documentIndex = ChooseDocumentSubmenu(out allDocuments);
+
+                    HowManyWordsToPrint(documentIndex, allDocuments);
+
+                    return;
+                }
+                else if (selectedMenuItem == "Write sorted arrays to new txt files")
+                {
+                    Console.Clear();
+                    if (Utils.WriteToFiles(documents))
+                    {
+                        Console.WriteLine("Wrote to new txt files located in Textfiles directory");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Could not write new files");
+                    }
+                }
+                else if (selectedMenuItem == "Back")
+                {
+                    Console.Clear();
+                    return;
+                }
+            }
+        }
+
+        private void HowManyWordsToPrint(int documentIndex, bool allDocuments)
+        {
+            Console.WriteLine("Enter how many words");
+            string input = Console.ReadLine();
+            int validIntInput;
+            string errormsg = "";
+            if (Input.IsIntInputValid(input, out validIntInput, out errormsg, false))
+            {
+                validIntInput--;
+
+                if(allDocuments)
+                {
+                    for(int i = 0; i < documents.Length; i++)
+                    {
+                        Console.WriteLine($"______document {i + 1} ________");
+                        if (validIntInput < documents[i].Length)
+                        {
+                            for (int j = 0; j < validIntInput; j++)
+                            {
+                                Console.WriteLine(documents[i][j]);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("prints all becouse input was too high");
+                            for(int k = 0; k < documents[i].Length; k++)
+                            {
+                                Console.WriteLine(documents[i][k]);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"______document {documentIndex + 1} ________");
+                    if (validIntInput < documents[documentIndex].Length)
+                    {
+                        for (int l = 0; l < validIntInput; l++)
+                        {
+                            Console.WriteLine(documents[documentIndex][l]);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine(errormsg);
+            }
+
+        }
+
+        private int ChooseDocumentSubmenu(out bool allDocuments)
+        {
+            allDocuments = false;
+            List<string> menuItems = new List<string>()
+            {
+                "Document 1",
+                "Document 2",
+                "Document 3",
+                "All documents",
+            };
+
+            Console.CursorVisible = false;
+            while (true)
+            {
+                string selectedMenuItem = Menu.DrawMenu(menuItems);
+                if (selectedMenuItem == "Document 1")
+                {
+                    Console.Clear(); 
+                    return 0;
+                }
+                else if (selectedMenuItem == "Document 2")
+                {
+                    Console.Clear();
+                    return 1;
+                }
+                else if (selectedMenuItem == "Document 3")
+                {
+                    Console.Clear();
+                    return 2;
+                }
+                else if (selectedMenuItem == "All documents")
+                {
+                    Console.Clear();
+                    allDocuments = true;
+                    return 0;
+                }
+            }
         }
 
         // under construction
@@ -160,6 +281,7 @@ namespace DatalogiInlamningsuppgift2
             Console.WriteLine("\n");
 
             int count = 0;
+            bool wordDidNotExist = false;
             bool canSaveResults = false;
             SearchResult[] resultsTempArr = Utils.InitializeArray<SearchResult>(3);
             Stopwatch stopwatch = new Stopwatch();
@@ -168,7 +290,7 @@ namespace DatalogiInlamningsuppgift2
                 for (int i = 0; i < bintreeArr.Length; i++)
                 {
                     stopwatch.Start();
-                    //TODO HERE WE ARE 
+
                     if (bintreeArr[i].FindNode(out count, input))
                     {
                         canSaveResults = true;
@@ -190,7 +312,7 @@ namespace DatalogiInlamningsuppgift2
                         }
 
                         resultsTempArr[i] = result;
-                        // Detta gör så att spalterna radar upp rätt
+
                         if (result.Count < 10)
                         {
                             Console.WriteLine($"{result.SearchWord} | {result.Document} | {result.Count}  Occurances | Found word in {stopwatch.Elapsed}");
@@ -200,6 +322,15 @@ namespace DatalogiInlamningsuppgift2
                             Console.WriteLine($"{result.SearchWord} | {result.Document} | {result.Count} Occurances | Found word in {stopwatch.Elapsed}");
                         }
                     }
+                    else
+                    {
+                        wordDidNotExist = true;
+                        
+                    }
+                }
+                if(wordDidNotExist)
+                {
+                    Console.WriteLine("Word does not exist.");
                 }
                 Console.WriteLine("\n");
 
@@ -211,7 +342,7 @@ namespace DatalogiInlamningsuppgift2
             }
             else
             {
-                Console.WriteLine("word does not exist");
+                Console.WriteLine("Input was null.");
             }
             
         }
@@ -249,7 +380,6 @@ namespace DatalogiInlamningsuppgift2
             }
 
         }
-
 
         // FOR TESTING SPEED
         private void twoForLoops(string input)

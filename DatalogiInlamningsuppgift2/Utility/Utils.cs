@@ -142,5 +142,38 @@ namespace DatalogiInlamningsuppgift2.Utility
 
             return bintrees;
         }
+
+        internal static bool WriteToFiles(string[][] documents)
+        {
+            string filepath1= @"\Textfiles\text1000sorted.txt";
+            string filepath2 = @"\Textfiles\text1500sorted.txt";
+            string filepath3 = @"\Textfiles\text3000sorted.txt";
+            string[] filepaths = new string[3] { filepath1, filepath2, filepath3 };
+
+            int successfulWrites = 0;
+
+            for(int i = 0; i < documents.Length; i++)
+            {
+                try
+                {
+                    string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + filepaths[i];
+                    File.WriteAllLines(projectDirectory, documents[i]);
+                    successfulWrites++;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+
+            if(successfulWrites > 2)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
