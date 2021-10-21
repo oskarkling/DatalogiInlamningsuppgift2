@@ -14,6 +14,7 @@ namespace DatalogiInlamningsuppgift2
         // TODO
         // 1. Full kommenterad kod
         // 2.Tidskomplexitetean för minst två funktioner ska skrivas som kommentar i koden
+        // 3. Skriv om Array.sort till quicksort
 
         private string errormsg;
         private string[] doc1Arr;
