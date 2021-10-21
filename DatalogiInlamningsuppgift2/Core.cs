@@ -9,14 +9,12 @@ using DatalogiInlamningsuppgift2.Utility;
 
 namespace DatalogiInlamningsuppgift2
 { 
-    // TODO: Lägg till en datastruktur där användaren välja att spara sina sökningar och reslutaten. Exempelvis en List<string> som printar ut det senaste.
-    // http://www.dummytextgenerator.com/
-
     internal class Core
     {
-        // Tidskomplexitetean för minst två funktioner ska skrivas som kommentar i koden
-        // Minst en rekursiv funktion i programmet
-        // Full kommenterad kod
+        // TODO
+        // 1. Full kommenterad kod
+        // 2.Tidskomplexitetean för minst två funktioner ska skrivas som kommentar i koden
+
         private string errormsg;
         private string[] doc1Arr;
         private string[] doc2Arr;
