@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace DatalogiInlamningsuppgift2.DataStructures
 {
+    // This class is a template for a string binary tree.
     internal class BinaryTree
     {
         public Node Root { get; set; }
-        public string TreeAsString { get; set; }
-        public int Counter { get; set; }
-        public Node MostWordNode { get; set; }
         public Node NodeToFind { get; set; }
 
         // Adds a value to the binary tree, thus creating a Node
@@ -33,14 +31,10 @@ namespace DatalogiInlamningsuppgift2.DataStructures
                 {
                     next = next.Right;
                 }
-                //else if (string.Compare(val, next.Data) == 0)
-                //{
-                //    before.Count++;
-                //}
                 else
                 {
+                    // If the string already exists
                     before.Count++;
-                    // If the value already exists
                     return false;
                 }
             }
@@ -67,20 +61,10 @@ namespace DatalogiInlamningsuppgift2.DataStructures
 
             return true;
         }
-        public string TraversePreOrder()
-        {
-            TreeAsString = "";
-            TraversePreOrder(this.Root);
-            return TreeAsString;
-        }
 
-        public string TraverseInOrder()
-        {
-            TreeAsString = "";
-            TraverseInOrder(this.Root);
-            return TreeAsString;
-        }
-
+        // Finds a node with Node.Data same as string input
+        // Calls recurse overloaded method FindNode to retrieve this node.
+        // Also returns int count as how many times this word was added into the binary tree.
         public bool FindNode(out int count, string input)
         {
             count = 0;
@@ -98,6 +82,8 @@ namespace DatalogiInlamningsuppgift2.DataStructures
             }
         }
 
+        // Recursive method. Returns the node with node.data == string input.
+        // else it returns the node.data as null.
         private Node FindNode(Node node, string input)
         {
             if (node == null)
@@ -114,49 +100,6 @@ namespace DatalogiInlamningsuppgift2.DataStructures
             }
 
             return node;
-        }
-
-        public string GetHighestCountOfWord(out int count)
-        {
-            Counter = 1;
-            GetHighestCountOfWord(this.Root);
-            count = MostWordNode.Count;
-            return MostWordNode.Data;
-        }
-
-        // Recursive method of finding the highest count of a node
-        private void GetHighestCountOfWord(Node parent)
-        {
-            if(parent != null)
-            {
-                if(parent.Count >= Counter)
-                {
-                    Counter = parent.Count;
-                    MostWordNode = parent;
-                }
-                GetHighestCountOfWord(parent.Left);
-                GetHighestCountOfWord(parent.Right);
-            }
-        }
-
-        private void TraverseInOrder(Node parent)
-        {
-            if (parent != null)
-            {
-                TraverseInOrder(parent.Left);
-                TreeAsString += parent.Data + "(" + parent.Count + ")" + " ";
-                TraverseInOrder(parent.Right);
-            }
-        }
-
-        private void TraversePreOrder(Node parent)
-        {
-            if (parent != null)
-            {
-                TreeAsString += parent.Data + "(" + parent.Count + ")" + " ";
-                TraversePreOrder(parent.Left);
-                TraversePreOrder(parent.Right);
-            }
         }
     }
 }

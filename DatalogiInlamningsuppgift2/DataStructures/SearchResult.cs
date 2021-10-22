@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DatalogiInlamningsuppgift2.DataStructures
 {
+    // This class is for saving search results.
     internal class SearchResult
     {
         internal string Document { get; set; }

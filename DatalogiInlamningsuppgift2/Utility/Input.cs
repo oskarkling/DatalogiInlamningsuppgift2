@@ -8,28 +8,9 @@ namespace DatalogiInlamningsuppgift2.Utility
 {
     internal static class Input
     {
-        internal static bool IsMenuInputValid(string input, out int menuChoice, out string errormsg, int nrOfMenuChoices)
-        {
-            errormsg = "";
-            menuChoice = 0;
-            if(IsIntInputValid(input, out menuChoice, out errormsg, true))
-            {
-                if(menuChoice < nrOfMenuChoices)
-                {
-                    return true;
-                }
-                else
-                {
-                    errormsg = $"Menu choice is out for range for menu choices. Use 0 - {nrOfMenuChoices - 1}\n";
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
 
+        // Checks if an input of string is a valid number.
+        // Checks if String.Empty, is zero, is negative, is too large - if any of theese fails, it returns false with an error message.
         internal static bool IsIntInputValid(string input, out int validNumber, out string errormsg, bool canBeZero)
         {
             errormsg = "no error";

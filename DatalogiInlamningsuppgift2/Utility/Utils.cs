@@ -10,6 +10,8 @@ namespace DatalogiInlamningsuppgift2.Utility
 {
     internal static class Utils
     {
+        // Reads a .txt file and saves the data in a string[] array.
+        // Any failure of doing so results in an error message.
         internal static bool ReadTxtFile(string filepath, out string[] allLinesArr, out string errormsg)
         {
             errormsg = "";
@@ -27,6 +29,7 @@ namespace DatalogiInlamningsuppgift2.Utility
             }
         }
 
+        // This method removes unvalid characters and splits the argument string[] into an string[] arr where each word is their own element.
         internal static bool TxtToArr(string filePath, out string[] arrToSend, out string errormsg)
         {
             arrToSend = null;
@@ -49,7 +52,7 @@ namespace DatalogiInlamningsuppgift2.Utility
             }
         }
 
-        // Initializes a generic array
+        // Initializes a generic array - makes so the declared and initialzed array does not cointain null objects. But new objects of said type.
         // https://stackoverflow.com/questions/3301678/how-to-declare-an-array-of-objects-in-c-sharp
         internal static T[] InitializeArray<T>(int length) where T : new()
         {
@@ -62,6 +65,8 @@ namespace DatalogiInlamningsuppgift2.Utility
             return array;
         }
 
+        // Sorts arrays of arguments in alphabetical order.
+        // Then returns a 2d array of sorted arrays.
         internal static string[][] SortArrays(string[] doc1Arr, string[] doc2Arr, string[] doc3Arr)
         {
             // HEAP sort O(n log n)
@@ -71,11 +76,12 @@ namespace DatalogiInlamningsuppgift2.Utility
             return new string[][] { doc1Arr, doc2Arr, doc3Arr };
         }
 
-        // Inserts sorted array into a binary tree which gets sorted therefor
+        // Inserts a sorted array into a binary tree. But inserts in a sorted order so the result is a sorted binary tree with as low height as possible.
+        // Algorithm below - results in a sorted binary tree for quick binary searches.
+        // Then returns an array of sorted binary trees.
         internal static BinaryTree[] InsertIntoBinaryTree(string[][] documents)
         {
             BinaryTree[] bintrees = InitializeArray<BinaryTree>(documents.Length);
-
 
             // Iteration for each documents
             for (int i = 0; i < documents.Length; i++)
@@ -139,10 +145,11 @@ namespace DatalogiInlamningsuppgift2.Utility
                     }
                 }
             }
-
             return bintrees;
         }
 
+        // Creates new sorted .txt files in the Textfiles folder
+        // Overwrites existing files.
         internal static bool WriteToFiles(string[][] documents)
         {
             string filepath1= @"\Textfiles\text1000sorted.txt";

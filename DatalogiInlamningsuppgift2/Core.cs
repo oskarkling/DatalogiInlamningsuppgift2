@@ -30,6 +30,8 @@ namespace DatalogiInlamningsuppgift2
         private BinaryTree[] bintreeArr;
         private List<SearchResult> listOfResults;
 
+
+        // Initializes variables and runs init methods in the constructor.
         internal Core()
         {
             FILE_PATH_1 = @"\Textfiles\text1000.txt";
@@ -40,7 +42,11 @@ namespace DatalogiInlamningsuppgift2
             MainMenu();
         }
 
-        // Load text from files to arrays
+        // Calls Utils methods to initalize the data from .txt files into binary trees.
+        // Calls Utils.TxtToArr to get text from .txt files to arrays.
+        // Then sorts the arrays alphabetacally and places them in a 2d array documents[][]
+        // Then inserts it sorted into binary trees.
+        // If Any operation does not work it will return errormsg and program will stop.
         private void InitTxtFiles()
         {
             Stopwatch stopwatch = new Stopwatch();
@@ -64,7 +70,6 @@ namespace DatalogiInlamningsuppgift2
                 stopwatch.Stop();
 
                 Console.WriteLine("Texts are now inserted into three sorted binary trees. Operations took " + stopwatch.Elapsed);
-                
             }
             else
             {
@@ -73,13 +78,14 @@ namespace DatalogiInlamningsuppgift2
             }
         }
 
-        // under construction
+        // Main menu for the program. Uses a while loop
+        // Input from user are compared to menu choices via the Menu.Drawmenu method.
         private void MainMenu()
         {
             List<string> menuItems = new List<string>()
             {
                 "Search for a word",
-                "Show saved words",
+                "Show saved results",
                 "Sort documents in alphabetical order. Then print or save them as new txt files",
                 "Exit",
             };
@@ -95,10 +101,10 @@ namespace DatalogiInlamningsuppgift2
                     Console.Clear();
                     SearchForAWord();
                 }
-                else if (selectedMenuItem == "Show saved words")
+                else if (selectedMenuItem == "Show saved results")
                 {
                     Console.Clear();
-                    ShowSavedWords();
+                    ShowSavedResults();
                 }
                 else if (selectedMenuItem == "Sort documents in alphabetical order. Then print or save them as new txt files")
                 {
@@ -114,6 +120,7 @@ namespace DatalogiInlamningsuppgift2
             }
         }
 
+        // Sub menu - if the user want to print the results to console or write the results to new .txt files
         private void PrintOrWriteSubMenu()
         {
 
@@ -158,6 +165,8 @@ namespace DatalogiInlamningsuppgift2
             }
         }
 
+        // This method lets the user choose how many words they want to print out to the console.
+        // If the input is higher than the words in the array then it will print out all the words in the array.
         private void HowManyWordsToPrint(int documentIndex, bool allDocuments)
         {
             Console.WriteLine("Enter how many words");
@@ -192,13 +201,17 @@ namespace DatalogiInlamningsuppgift2
                 }
                 else
                 {
-                    Console.WriteLine($"______document {documentIndex + 1} ________");
                     if (validIntInput < documents[documentIndex].Length)
                     {
-                        for (int l = 0; l < validIntInput; l++)
+                        Console.WriteLine($"______document {documentIndex + 1} ________");
+                        for (int l = 0; l < validIntInput + 1; l++)
                         {
                             Console.WriteLine(documents[documentIndex][l]);
                         }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Input was too high for this document");
                     }
                 }
             }
@@ -209,6 +222,7 @@ namespace DatalogiInlamningsuppgift2
 
         }
 
+        // Sub menu - that allows the user to choose what document they want to print out the words from.
         private int ChooseDocumentSubmenu(out bool allDocuments)
         {
             allDocuments = false;
@@ -248,8 +262,8 @@ namespace DatalogiInlamningsuppgift2
             }
         }
 
-        // under construction
-        private void ShowSavedWords()
+        // Prints out all the results of saved words to the console.
+        private void ShowSavedResults()
         {
             int count = 0;
             if (listOfResults.Count > 0)
@@ -271,7 +285,12 @@ namespace DatalogiInlamningsuppgift2
             }
         }
 
-        // under construction
+        // This option gets the user input of which word the user want to search for.
+        // Then calls the FindNode in the appropriate binarytree.
+        // Also clocks the operation with a stopwatch to measure time of the operation.
+        // Then prints the results to the console.
+        // Then gives the user the option to save the results.
+        // All false inputs will be printed to the console.
         private void SearchForAWord()
         {
             Console.Clear();
@@ -346,7 +365,7 @@ namespace DatalogiInlamningsuppgift2
             
         }
 
-        // under construction
+        // Sub menu - that allows the user to save results in a list of SearchResult. 
         private void SearchForAWordSubMenu(SearchResult[] resultsTempArr)
         {
 
@@ -378,31 +397,6 @@ namespace DatalogiInlamningsuppgift2
                 }
             }
 
-        }
-
-        // FOR TESTING SPEED
-        private void twoForLoops(string input)
-        {
-            // testing for in for O(n*n) Speed
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-            int counter = 0;
-            bool found = false;
-            for (int i = 0; i < documents.Length; i++)
-            {
-                for (int j = 0; j < documents[i].Length; j++)
-                {
-                    if (documents[i][j] == input)
-                    {
-                        counter++;
-                        found = true;
-                    }
-                }
-            }
-
-            stopwatch.Stop();
-            Console.WriteLine("\nFor loop counter = " + counter);
-            Console.WriteLine("Found word in " + stopwatch.Elapsed + "\n");
         }
     }
 }
