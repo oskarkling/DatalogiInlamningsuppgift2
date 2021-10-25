@@ -13,6 +13,7 @@ namespace DatalogiInlamningsuppgift2.DataStructures
         public Node NodeToFind { get; set; }
 
         // Adds a value to the binary tree, thus creating a Node
+        // O(N)
         public bool Add(string val)
         {
             Node before = null;
@@ -65,6 +66,7 @@ namespace DatalogiInlamningsuppgift2.DataStructures
         // Finds a node with Node.Data same as string input
         // Calls recurse overloaded method FindNode to retrieve this node.
         // Also returns int count as how many times this word was added into the binary tree.
+        // O(N)
         public bool FindNode(out int count, string input)
         {
             count = 0;
@@ -84,6 +86,7 @@ namespace DatalogiInlamningsuppgift2.DataStructures
 
         // Recursive method. Returns the node with node.data == string input.
         // else it returns the node.data as null.
+        // O(N)
         private Node FindNode(Node node, string input)
         {
             if (node == null)

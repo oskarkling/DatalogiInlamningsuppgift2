@@ -69,7 +69,11 @@ namespace DatalogiInlamningsuppgift2.Utility
         // Then returns a 2d array of sorted arrays.
         internal static string[][] SortArrays(string[] doc1Arr, string[] doc2Arr, string[] doc3Arr)
         {
-            // HEAP sort O(n log n)
+            // Quick sort?
+
+
+
+
             Array.Sort(doc1Arr);
             Array.Sort(doc2Arr);
             Array.Sort(doc3Arr);
@@ -79,24 +83,35 @@ namespace DatalogiInlamningsuppgift2.Utility
         // Inserts a sorted array into a binary tree. But inserts in a sorted order so the result is a sorted binary tree with as low height as possible.
         // Algorithm below - results in a sorted binary tree for quick binary searches.
         // Then returns an array of sorted binary trees.
+        // O((N^2) + (N^2))?
+        
+        // O(N^(2+(N^2))
         internal static BinaryTree[] InsertIntoBinaryTree(string[][] documents)
         {
             BinaryTree[] bintrees = InitializeArray<BinaryTree>(documents.Length);
+            
+            string root;
+            int nextLeftEven;
+            int nextLeftOdd;
+            int CounterWeight;
+            int nextRightEven;
+            int nextRightOdd;
+            int middle;
+            bool useEvenLeft;
+            bool useEvenRight;
+            bool insertLeftTree;
 
             // Iteration for each documents
             for (int i = 0; i < documents.Length; i++)
             {
-                string root;
-                int nextLeftEven = -2;
-                int nextLeftOdd = -1;
-                int CounterWeight = 2;
-                int nextRightEven = 2;
-                int nextRightOdd = 1;
-                int middle;
-                bool useEvenLeft = true;
-                bool useEvenRight = true;
-                bool insertLeftTree = true;
-
+                nextLeftEven = -2;
+                nextLeftOdd = -1;
+                CounterWeight = 2;
+                nextRightEven = 2;
+                nextRightOdd = 1;
+                useEvenLeft = true;
+                useEvenRight = true;
+                insertLeftTree = true;
                 root = documents[i][documents[i].Length / 2];
                 middle = documents[i].Length / 2;
                 bintrees[i].Add(root);
@@ -104,7 +119,6 @@ namespace DatalogiInlamningsuppgift2.Utility
                 // Iteration for each documentH
                 for (int j = 0; j < documents[i].Length; j++)
                 {
-                    
                     if(insertLeftTree)
                     {
                         if (useEvenLeft)
