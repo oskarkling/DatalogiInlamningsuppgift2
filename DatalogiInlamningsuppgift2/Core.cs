@@ -184,10 +184,11 @@ namespace DatalogiInlamningsuppgift2
                         Console.WriteLine($"______document {i + 1} ________");
                         if (validIntInput < documents[i].Length)
                         {
-                            for (int j = 0; j < validIntInput; j++)
+                            for (int j = 0; j < validIntInput + 1; j++)
                             {
                                 Console.WriteLine(documents[i][j]);
                             }
+                            Console.WriteLine("\n");
                         }
                         else
                         {
@@ -196,6 +197,7 @@ namespace DatalogiInlamningsuppgift2
                             {
                                 Console.WriteLine(documents[i][k]);
                             }
+                            Console.WriteLine("\n");
                         }
                     }
                 }
@@ -208,6 +210,7 @@ namespace DatalogiInlamningsuppgift2
                         {
                             Console.WriteLine(documents[documentIndex][l]);
                         }
+                        Console.WriteLine("\n");
                     }
                     else
                     {
