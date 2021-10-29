@@ -11,7 +11,15 @@ namespace DatalogiInlamningsuppgift2
     {
         static void Main(string[] args)
         {
-            Core core = new Core();
+            //Core core = new Core();
+
+            string[] testArray = { "Hej", "Peter", "Kalle" };
+            double[] numArray = Utils.StringToValue(testArray);
+
+            foreach (var item in numArray)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }

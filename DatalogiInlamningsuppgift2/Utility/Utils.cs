@@ -196,5 +196,55 @@ namespace DatalogiInlamningsuppgift2.Utility
                 return false;
             }
         }
+
+        public static double[] StringToValue(string[] array)
+        {
+            double[] numArray = new double[array.Length];
+            double value = 0;
+            double total = 0;
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                char[] chars = array[i].ToCharArray();
+
+                for (int c = 0; c < chars.Length; c++)
+                {
+                    if (chars[c] == 'A' || chars[c] == 'a') { value = 1; }
+                    else if (chars[c] == 'B' || chars[c] == 'b') { value = 2; }
+                    else if (chars[c] == 'C' || chars[c] == 'c') { value = 3; }
+                    else if (chars[c] == 'D' || chars[c] == 'd') { value = 4; }
+                    else if (chars[c] == 'E' || chars[c] == 'e') { value = 5; }
+                    else if (chars[c] == 'F' || chars[c] == 'f') { value = 6; }
+                    else if (chars[c] == 'G' || chars[c] == 'g') { value = 7; }
+                    else if (chars[c] == 'H' || chars[c] == 'h') { value = 8; }
+                    else if (chars[c] == 'I' || chars[c] == 'i') { value = 9; }
+                    else if (chars[c] == 'J' || chars[c] == 'j') { value = 10; }
+                    else if (chars[c] == 'K' || chars[c] == 'k') { value = 11; }
+                    else if (chars[c] == 'L' || chars[c] == 'l') { value = 12; }
+                    else if (chars[c] == 'M' || chars[c] == 'm') { value = 13; }
+                    else if (chars[c] == 'N' || chars[c] == 'n') { value = 14; }
+                    else if (chars[c] == 'O' || chars[c] == 'o') { value = 15; }
+                    else if (chars[c] == 'P' || chars[c] == 'p') { value = 16; }
+                    else if (chars[c] == 'Q' || chars[c] == 'q') { value = 17; }
+                    else if (chars[c] == 'R' || chars[c] == 'r') { value = 18; }
+                    else if (chars[c] == 'S' || chars[c] == 's') { value = 19; }
+                    else if (chars[c] == 'T' || chars[c] == 't') { value = 20; }
+                    else if (chars[c] == 'U' || chars[c] == 'u') { value = 21; }
+                    else if (chars[c] == 'V' || chars[c] == 'v') { value = 22; }
+                    else if (chars[c] == 'X' || chars[c] == 'x') { value = 23; }
+                    else if (chars[c] == 'Y' || chars[c] == 'y') { value = 24; }
+                    else if (chars[c] == 'Z' || chars[c] == 'z') { value = 25; }
+                    else { value = 0; }
+
+                    if (c > 0)
+                    {
+                        value *= Math.Pow(10, -c);
+                    }
+                    total += value;
+                }
+                numArray[i] = total;
+            }
+            return numArray;
+        }
     }
 }
