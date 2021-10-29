@@ -16,7 +16,6 @@ namespace DatalogiInlamningsuppgift2.Utility
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             int counter = 0;
-            bool found = false;
             for (int i = 0; i < documents.Length; i++)
             {
                 for (int j = 0; j < documents[i].Length; j++)
@@ -24,7 +23,6 @@ namespace DatalogiInlamningsuppgift2.Utility
                     if (documents[i][j] == input)
                     {
                         counter++;
-                        found = true;
                     }
                 }
             }

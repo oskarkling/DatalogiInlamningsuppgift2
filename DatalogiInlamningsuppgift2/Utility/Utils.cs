@@ -70,14 +70,15 @@ namespace DatalogiInlamningsuppgift2.Utility
         internal static string[][] SortArrays(string[] doc1Arr, string[] doc2Arr, string[] doc3Arr)
         {
             // Quick sort?
-
-
-
             Array.Sort(doc1Arr);
             Array.Sort(doc2Arr);
             Array.Sort(doc3Arr);
+
+
+
             return new string[][] { doc1Arr, doc2Arr, doc3Arr };
         }
+
 
         // Inserts a sorted array into a binary tree. But inserts in a sorted order so the result is a sorted binary tree with as low height as possible.
         // Algorithm below - results in a sorted binary tree for quick binary searches.
@@ -85,7 +86,7 @@ namespace DatalogiInlamningsuppgift2.Utility
 
         // = N^2 + N^3
         // ordo O(N+N^2) 
-       
+
         internal static BinaryTree[] InsertIntoBinaryTree(string[][] documents)
         {
             BinaryTree[] bintrees = InitializeArray<BinaryTree>(documents.Length);
